@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
+    <meta name="generator" content="Hugo 0.72.0">
+    <title>Blog Template · Bootstrap</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+    <link rel="canonical" href="https://v5.getbootstrap.com/docs/5.0/examples/blog/">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/css/bootstrap.min.css"
+        integrity="sha384-r4NyP46KrjDleawBgD5tp8Y7UzmLA05oM1iAEQ17CSuDqnUK2+k9luXQOfXJCJ4I" crossorigin="anonymous">
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/js/bootstrap.min.js"
+        integrity="sha384-oesi62hOLfzrys4LxRF63OJCXdXDipiYWBnvTl9Y9/TRlw5xlKIEHpNyvvDShgf/"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+        crossorigin="anonymous"></script>
+    <link href="https://fonts.googleapis.com/css?family=Playfair&#43;Display:700,900&amp;display=swap" rel="stylesheet">
+
+</head>
+
+<body>
+    <div id="app">
+        <form class="container-md" onsubmit="return false">
+            <div class="row">
+                <div class="col">
+                    <label for="exampleInputEmail1">Studen Id</label>
+                    <input type="text" v-model="studenid" class="form-control" id="studid" placeholder="Stud Id">
+                </div>
+                <div class="col">
+                    <label for="exampleInputEmail1">First name</label>
+                    <input type="text" v-model="fname" class="form-control" id="FirstName" placeholder="First name">
+                </div>
+                <div class="col">
+                    <label for="exampleInputEmail1">Last name</label>
+                    <input type="text" v-model="lname" class="form-control" id="Lastname" placeholder="Last name">
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-7">
+                    <label for="Email1">Email</label>
+                    <input type="text" v-model="email" class="form-control" id="email" placeholder="Email">
+                </div>
+                <div class="col">
+                    <label for="exampleInputPassword1">GPA</label>
+                    <input type="number" step="0.01" class="form-control" max= 4 min="0" id="gpa"
+                        aria-describedby="inputGroupPrepend2" required v-model="gpa">
+                </div>
+            </div>
+
+            <button type="submit" v-on:click="addstden(studenid,fname,lname,email,gpa)"
+                class="btn btn-primary my-2">Submit</button>
+        </form>
+
+        <table class="table container-md ">
+            <thead class="table-dark">
+                <tr>
+                    <th scope="col">Studen ID</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Email</th>
+                    <th scope="col">GPA</th>
+                    <th scope="col">Delete</th>
+                </tr>
+            </thead>
+            <tbody v-for="(item , index) in student0bj">
+                <tr v-if="item.gpa >= 2.0" class="mb-0">
+                    <th scope="row">{{item.id}}</th>
+                    <td>{{item.fname+" "+item.lname}}</td>
+                    <td>{{item.email}}</td>
+                    <td>{{item.gpa}}</td>
+                    <td><button v-on:click="deletet(index)" class="btn btn-danger">
+                        delete
+                      </button></td>
+                </tr>
+                <tr v-else class="font-weight-bold" style="color:rgb(237,41,57)">
+                    <th scope="row">{{item.id}}</th>
+                    <td>{{item.fname+" "+item.lname}} </td>
+                    <td>{{item.email}}</td>
+                    <td>{{item.gpa}}</td>
+                    <td><button v-on:click="deletet(index)" class="btn btn-danger">
+                        delete
+                      </button></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</body>
+<script>
+    var app = new Vue({
+        el: '#app',
+        data: {
+            studenid: "",
+            fname: "",
+            lname: "",
+            email: "",
+            gpa: 0,
+
+            student0bj: [{ id: "6304101361", fname: "นายวรเชษฐ์", lname: "บารมี", email: "nonty009@hotmail.com", gpa: 3.7 }, { id: "6304101xxx", fname: "นายหมอ", lname: "อินคา", email: "docter@hotmail.com", gpa: 1.98 },]
+        },
+        methods: {
+            
+            addstden: function (studenid, fname, lname, email, gpa) {
+                if(gpa >= 0 & gpa<=4){
+                    this.student0bj.push({ id: studenid, fname: fname, lname: lname, email: email, gpa: gpa });
+
+            } else {alert("GPA have a problem")}
+            },
+            deletet: function (index) {
+                this.student0bj.splice(index, 1);
+            }
+
+        }
+    }
+    )
+</script>
+
+</html>
